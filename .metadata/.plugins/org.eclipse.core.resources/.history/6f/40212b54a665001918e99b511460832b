@@ -31,47 +31,37 @@ import java.util.Scanner;
 
 public class ScoreMain
 {
-	public static void main(String[] args)
-	{
-		Scanner sc = new Scanner(System.in);
-		
-		try 
-		{
-			ScoreDAO dao = new ScoreDAO();
-			
-			int count = dao.count();
-			
-			do
-			{
-				System.out.printf("%d번 학생 성적 입력(이름 국어 영어 수학) : ", (++count));
-				String name = sc.next();
-				
-				if (name.equals("."))
-					break;
-				
-				int kor = sc.nextInt();
-				int eng = sc.nextInt();
-				int mat = sc.nextInt();
-				
-				ScoreDTO dto = new ScoreDTO();
-				
-				dto.setName(name);
-				dto.setKor(kor);
-				dto.setEng(eng);
-				
-			} while (true);
-
-			System.out.println();
-			System.out.println("-----------------------------------------------------");
-			System.out.println("번호\t이름\t국어\t영어\t수학\t총점\t평균");
-			System.out.printf("%s\t%s\t%d\t%d\t%d\t%d\t%.2f", dao.count() );
-			System.out.println("-----------------------------------------------------");
-		
-			
-		}catch (Exception e)
-		{
-			System.out.println(e.toString());
-		}
-	}
+	Scanner sc = new Scanner(System.in);
 	
+	try 
+	{
+		ScoreDAO dao = new ScoreDAO();
+		
+		int count = dao.count();
+		
+		do
+		{
+			System.out.printf("%d번 학생 성적 입력(이름 국어 영어 수학) : ", (++count));
+			String name = sc.next();
+			
+			if (name.equals("."))
+				break;
+			
+			int kor = sc.nextInt();
+			int eng = sc.nextInt();
+			int mat = sc.nextInt();
+			
+			ScoreDTO dto = new ScoreDTO();
+			
+			dto.setName(name);
+			dto.setKor(kor);
+			dto.setEng(eng);
+			
+		} while (true);
+		
+		
+	}catch (Exception e)
+	{
+		System.out.println(e.toString());
+	}
 }

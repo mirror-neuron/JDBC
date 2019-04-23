@@ -64,7 +64,7 @@ public class ScoreMain
 			System.out.println();
 			System.out.println("-----------------------------------------------------");
 			System.out.println("번호\t이름\t국어\t영어\t수학\t총점\t평균");
-			System.out.printf("%s\t%s\t%d\t%d\t%d\t%d\t%.2f", dao.count() );
+			System.out.printf("%s\t%s\t%d\t%d\t%d\t%d\t%.2f", count, );
 			System.out.println("-----------------------------------------------------");
 		
 			
