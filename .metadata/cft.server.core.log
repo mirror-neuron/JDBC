@@ -1,0 +1,2 @@
+화 4월 23 2019 02:44:24 오후 - CloudFoundryServer.modifyModules(...): add: { JDBC02 [org.eclipse.jst.jee.server:JDBC02/jst.web]} remove: {}
+화 4월 23 2019 02:44:25 오후 - CloudFoundryServerBehaviour.publishModule(...): ADDED { JDBC02 [org.eclipse.jst.jee.server:JDBC02/jst.web]}

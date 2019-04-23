@@ -1,0 +1,164 @@
+/*=========================
+ 	MemberMain.java
+=========================*/
+
+/*
+○ 문제
+   TBL_MEMBER 테이블을 활용하여
+   이름과 전화번호를 여러 건 입력받고, 전체 출력하는 프로그램을 구현한다.
+   단, 데이터베이스 연동이 이루어져야 하고
+   MemberDAO, MemberDTO 클래스를 활용해야 한다.
+
+실행 예)
+
+이름 전화번호 입력(1) : 전훈의 010-1111-1111
+회원 정보 입력 완료~!!!!
+이름 전화번호 입력(2) : 유진석 010-2222-2222
+회원 정보 입력 완료~!!!!
+이름 전화번호 입력(3) : 최보라 010-3333-3333
+회원 정보 입력 완료~!!!!
+이름 전화번호 입력(4) : .
+
+---------------------------------------
+전체 회원 수 : 3명
+---------------------------------------
+번호 		이름		전화번호
+1		   전훈의	   010-1111-1111
+2		   유진석	   010-2222-2222
+3		   최보라	   010-3333-3333
+---------------------------------------
+*/
+
+package com.test;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.util.DBConn;
+
+public class MemberMain
+{
+	public class MemberDTO
+	{
+		private String sid, name, tel;
+
+		public String getSid()
+		{
+			return sid;
+		}
+
+		public void setSid(String sid)
+		{
+			this.sid = sid;
+		}
+
+		public String getName()
+		{
+			return name;
+		}
+
+		public void setName(String name)
+		{
+			this.name = name;
+		}
+
+		public String getTel()
+		{
+			return tel;
+		}
+
+		public void setTel(String tel)
+		{
+			this.tel = tel;
+		}
+	}
+	
+	public class MemberDAO
+	{
+		private Connection conn;
+		
+		public MemberDAO() throws ClassNotFoundException, SQLException 
+		{
+			conn = DBConn.getConnection();
+		}
+		
+		public int add(MemberDTO dto) throws SQLException
+		{
+			int result = 0;
+			
+			Statement  stmt = conn.createStatement();
+			
+			String sql = String.format("INSERT INTO TBL_MEMBER(SID, NAME, TEL)"
+					+ " VALUES(MEMBERSEQ.NEXTVAL, '%s', '%s')"
+					, dto.getName(), dto.getTel());
+			
+			System.out.println(sql);
+			
+			result = stmt.executeUpdate(sql);
+			
+			stmt.close();
+			
+			return result;
+			
+		}
+		
+		public int count() throws SQLException
+		{
+			int result = 0;
+			
+			Statement stmt = conn.createStatement();
+			
+			String sql = "SELECT COUNT(*) AS COUNT FROM TBL_MEMBER";
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				result = rs.getInt("COUNT"); 
+			}
+			
+			rs.close();
+			stmt.close();
+			
+				
+			return result;		
+		}
+	
+		public ArrayList<MemberDTO> lists() throws SQLException
+		{
+			ArrayList<MemberDTO> result = new ArrayList<MemberDTO>();
+			
+			Statement stmt = conn.createStatement();
+			
+			String sql = "SELECT SID, NAME, TEL FROM TBL_MEMBER ORDER BY SID";
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			while (rs.next())
+			{
+				MemberDTO dto = new MemberDTO();
+				dto.setSid(rs.getString("SID"));
+				dto.setName(rs.getString("NAME"));
+				dto.setTel(rs.getString("TEL"));
+				
+				result.add(dto);
+				
+			}
+			
+			rs.close();
+			stmt.close();
+			
+			return result;
+		}
+		
+		public void close() throws SQLException 
+		{
+			DBConn.close();
+		}
+	
+	}
+		
+}
