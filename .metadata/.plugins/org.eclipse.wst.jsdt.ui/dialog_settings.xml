@@ -10,4 +10,6 @@
 	<item key="org.eclipse.wst.jsdt.uiformatter_pagemodify_dialog.preferred_height" value="801"/>
 	<item key="org.eclipse.wst.jsdt.uiformatter_pagemodify_dialog.preferred_x" value="198"/>
 	<item key="org.eclipse.wst.jsdt.uiformatter_pagemodify_dialog.preferred_y" value="3"/>
+	<section name="JavaElementSearchActions">
+	</section>
 </section>

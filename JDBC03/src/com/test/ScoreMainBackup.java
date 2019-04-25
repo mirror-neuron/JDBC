@@ -29,7 +29,7 @@ package com.test;
 
 import java.util.Scanner;
 
-public class ScoreMain
+public class ScoreMainBackup
 {
 	public static void main(String[] args)
 	{
