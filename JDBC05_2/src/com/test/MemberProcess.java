@@ -5,6 +5,7 @@
 
 package com.test;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -426,95 +427,6 @@ public class MemberProcess
 				System.out.println("수정 대상을 검색하지 못했습니다.");
 			}
 						
-			
-			/*	
-			 각자 추가로 작성한 내용	
-		 	// 지역 리스트 구성
-			ArrayList<String> citys = dao.searchCity();
-			StringBuilder cityStr = new StringBuilder();
-			for (String city : citys)
-			{
-				cityStr.append(city + "/"); 
-			}	
-			// 부서 리스트 구성
-			ArrayList<String> buseos = dao.searchBuseo();
-			StringBuilder buseoStr = new StringBuilder();
-			for (String buseo : buseos)
-			{
-				buseoStr.append(buseo + "/");
-			}
-			
-			// 직위 리스트 구성
-			ArrayList<String> jikwis = dao.searchJikwi();
-			StringBuilder jikwiStr = new StringBuilder();
-			for (String jikwi : jikwis)
-			{
-				jikwiStr.append(jikwi + "/");
-			}
-			
-			System.out.println();
-			System.out.println("직원 정보 수정 -------------------------------------------------------------");
-			System.out.printf("이름 : %s", members.get(0).getEmpName());
-			System.out.println("수정 이름 : ");
-			String empName = sc.next();
-			if (empName.equals("-"))
-				empName = members.get(0).getEmpName();
-			System.out.printf("주민등록번호(yymmdd-nnnnnnn) : %s", members.get(0).getSsn());
-			System.out.println("수정 주민등록번호 : ");
-			String ssn = sc.next();
-			if (ssn.equals("-"))
-				ssn = members.get(0).getSsn();
-			System.out.printf("입사일(yyyy-mm-dd) : %s", members.get(0).getIbsaDate());
-			System.out.println("수정 입사일 : ");
-			String ibsaDate = sc.next();
-			if (ibsaDate.equals("-"))
-				ibsaDate = members.get(0).getIbsaDate();
-			System.out.printf("지역(%s) : %s", cityStr.toString(), members.get(0).getCityLoc());
-			String cityLoc = sc.next();
-			if (cityLoc.equals("-"))
-				cityLoc = members.get(0).getCityLoc();
-			System.out.printf("전화번호 : %s", members.get(0).getTel());
-			String tel = sc.next();
-			if (tel.equals("-"))
-				tel = members.get(0).getTel();
-			System.out.printf("부서(%s) : %s", buseoStr.toString(), members.get(0).getBuseoName());
-			String buseoName = sc.next();
-			if (buseoName.equals("-"))
-				buseoName = members.get(0).getBuseoName();
-			System.out.printf("직위(%s) : %s", jikwiStr.toString(), members.get(0).getJikwiName());
-			String jikwiName = sc.next();
-			if (jikwiName.equals("-"))
-				jikwiName = members.get(0).getJikwiName();
-			System.out.printf("기본급(최소 %d원 이상) : ", dao.searchBasicPay(jikwiName), members.get(0).getBasicpay());
-			String basicPay = sc.next();
-			if (basicPay.equals("-"))
-				basicPay = Integer.toString(members.get(0).getBasicpay()); 
-			System.out.printf("수당 : %s", members.get(0).getSudang());
-			String sudang = sc.next();
-			if (sudang.equals("-"))
-				sudang = Integer.toString(members.get(0).getSudang());
-			System.out.println();
-			
-			
-			// MemberDTO 구성
-			MemberDTO dto = new MemberDTO();
-			dto.setEmpName(empName);  
-			dto.setIbsaDate(ibsaDate);
-			dto.setCityLoc(cityLoc);
-			dto.setTel(tel);
-			dto.setBuseoName(buseoName);
-			dto.setJikwiName(jikwiName);
-			dto.setBasicpay(Integer.parseInt(basicPay));
-			dto.setSudang(Integer.parseInt(sudang));
-			
-			// 적용된 행의 갯수 확인하여 결과 출력
-			int result = dao.add(dto);
-			
-			if (result>0)
-				System.out.println("직원 정보 입력 완료~!!!");
-			
-			System.out.println("----------------------------------------------------------------------------");	
-			*/
 
 		} catch (Exception e)
 		{
@@ -536,6 +448,75 @@ public class MemberProcess
 	
 	// 직원 정보 삭제 메소드 정의
 	
+	public void memberDelete() throws NumberFormatException, SQLException
+	{
+	
+		Scanner sc = new Scanner(System.in);
+
+		try
+		{
+			// 삭제할 직원 입력받기
+			System.out.print("삭제할 직원의 사원번호 입력 : ");
+			String value = sc.next();
+			
+			dao.connection();
+			
+			// 직원 정보 확인 후 삭제
+			ArrayList<MemberDTO> members = dao.searchLists("EMP_ID", value);
+			
+	
+			if (members.size() >0)
+			{
+				System.out.println();
+				System.out.print("사번 이름 주민번호 입사일 지역 전화번호 부서 직위 기본급 수당 급여");
+				
+				for (MemberDTO memberDTO : members)
+				{
+					System.out.println();
+					
+					System.out.printf("%d %s %s %s %s %s %s %s %d %d %d\n\n"
+							, memberDTO.getEmpId(), memberDTO.getEmpName()
+							, memberDTO.getSsn(), memberDTO.getIbsaDate()
+							, memberDTO.getCityLoc(), memberDTO.getTel()
+							, memberDTO.getBuseoName(), memberDTO.getJikwiName()
+							, memberDTO.getBasicpay(), memberDTO.getSudang()
+							, memberDTO.getPay());
+					
+				}
+				System.out.print("정말 삭제하시겠습니까?(Y/N) : ");
+				String response = sc.next();
+				if (response.equals("Y") || response.equals("y"))
+				{
+					int result = dao.remove(Integer.parseInt(value));
+					if (result >0)
+					{
+						System.out.println("직원 정보가 정상적으로 삭제되었습니다.");
+					}
+				} else
+				{
+					System.out.println("삭제 대상을 검색하지 못하였습니다.");
+
+				}
+			}
+			
+		} catch (Exception e)
+		{
+			System.out.println(e.toString());
+		}
+		finally
+		{
+			try
+			{
+				dao.close();
+				
+			} catch (Exception e2)
+			{
+				System.out.println(e2.toString());
+			}
+		}
+			
+	}
+			
 }
 
 

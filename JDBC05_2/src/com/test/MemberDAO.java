@@ -299,7 +299,7 @@ public class MemberDAO
 	{
 		int result = 0;
 		Statement stmt = conn.createStatement();
-		String sql = String.format("SELECT * FROM TBL_EMP WHERE EMP_ID=%d", empId);
+		String sql = String.format("DELETE FROM TBL_EMP WHERE EMP_ID=%d", empId);
 		result = stmt.executeUpdate(sql);
 		stmt.close();
 		

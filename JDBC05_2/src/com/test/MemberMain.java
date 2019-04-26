@@ -197,8 +197,8 @@ public class MemberMain
 					prc.memberUpdate();
 					break;
 				case 5:
-					// 직원 정도 삭제 메소드 호출
-					
+					// 직원 정보 삭제 메소드 호출
+					prc.memberDelete();
 					break;
 				}
 			} catch (Exception e)

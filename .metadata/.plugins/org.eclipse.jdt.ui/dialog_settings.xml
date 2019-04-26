@@ -12,6 +12,7 @@
 	<item key="org.eclipse.jdt.ui.codeformatter.create_profile_dialog.open_edit" value="true"/>
 	<item key="org.eclipse.jdt.uiformatter_page.last_focus_index" value="32"/>
 	<item key="org.eclipse.jdt.ui.codeformatter.savepath" value="C:\Downloads"/>
+	<item key="org.eclipse.jdt.ui.lastextjar" value="C:\Downloads\10.ojdbc6"/>
 	<section name="JavaElementSearchActions">
 	</section>
 	<section name="NewPackageWizardPage">
@@ -25,6 +26,8 @@
 		<item key="create_unimplemented" value="true"/>
 	</section>
 	<section name="completion_proposal_size">
+		<item key="contextSelector.size.x" value="331"/>
+		<item key="contextSelector.size.y" value="221"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
@@ -85,6 +88,6 @@
 		<item key="HISTORY_SIZE" value="0"/>
 	</section>
 	<section name="BuildPathsPropertyPage">
-		<item key="pageIndex" value="3"/>
+		<item key="pageIndex" value="2"/>
 	</section>
 </section>
